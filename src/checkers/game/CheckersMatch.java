@@ -1,7 +1,7 @@
 package checkers.game;
 
-import boardgame.Board;
-import boardgame.Position;
+import checkers.boardgame.Board;
+import checkers.boardgame.Position;
 import checkers.piece.Pawn;
 
 public class CheckersMatch {

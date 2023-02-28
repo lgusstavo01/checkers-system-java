@@ -1,6 +1,6 @@
 package checkers.piece;
 
-import boardgame.Board;
+import checkers.boardgame.Board;
 import checkers.game.CheckersPiece;
 import checkers.game.Color;
 

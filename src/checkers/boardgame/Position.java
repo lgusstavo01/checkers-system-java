@@ -1,4 +1,4 @@
-package boardgame;
+package checkers.boardgame;
 
 public class Position {
 	private Integer row;

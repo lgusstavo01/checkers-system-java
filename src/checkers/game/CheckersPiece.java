@@ -1,7 +1,7 @@
 package checkers.game;
 
-import boardgame.Board;
-import boardgame.Piece;
+import checkers.boardgame.Board;
+import checkers.boardgame.Piece;
 
 public class CheckersPiece extends Piece{
 	private Color color;

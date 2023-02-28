@@ -1,4 +1,4 @@
-package boardgame;
+package checkers.boardgame;
 
 public class Piece {
 	protected Position position;
