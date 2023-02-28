@@ -1,6 +1,6 @@
 package checkers.console;
 
-import checkersgame.CheckersPiece;
+import checkers.game.CheckersPiece;
 
 public class UI {
 	

@@ -1,7 +1,6 @@
-package application;
+package checkers.console;
 
-import checkers.console.UI;
-import checkersgame.CheckersMatch;
+import checkers.game.CheckersMatch;
 
 public class Program {
 

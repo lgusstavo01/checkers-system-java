@@ -1,4 +1,4 @@
-package checkersgame;
+package checkers.game;
 
 import boardgame.Board;
 import boardgame.Piece;
