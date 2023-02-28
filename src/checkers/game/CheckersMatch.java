@@ -1,7 +1,6 @@
 package checkers.game;
 
 import checkers.boardgame.Board;
-import checkers.boardgame.Position;
 import checkers.piece.Pawn;
 
 public class CheckersMatch {
@@ -23,32 +22,35 @@ public class CheckersMatch {
 		return temp;
 	}
 	
+	public void placeNewPiece(char column, int row, CheckersPiece piece) {
+		board.placePiece(piece, new CheckersPosition(column, row).toPosition());
+	}
+	
 	public void initialSetup() {
-		board.placePiece(new Pawn(board, Color.BLACK), new Position(0, 0));
-		board.placePiece(new Pawn(board, Color.BLACK), new Position(0, 2));
-		board.placePiece(new Pawn(board, Color.BLACK), new Position(0, 4));
-		board.placePiece(new Pawn(board, Color.BLACK), new Position(0, 6));
-		board.placePiece(new Pawn(board, Color.BLACK), new Position(1, 1));
-		board.placePiece(new Pawn(board, Color.BLACK), new Position(1, 3));
-		board.placePiece(new Pawn(board, Color.BLACK), new Position(1, 5));
-		board.placePiece(new Pawn(board, Color.BLACK), new Position(1, 7));
-		board.placePiece(new Pawn(board, Color.BLACK), new Position(2, 0));
-		board.placePiece(new Pawn(board, Color.BLACK), new Position(2, 2));
-		board.placePiece(new Pawn(board, Color.BLACK), new Position(2, 4));
-		board.placePiece(new Pawn(board, Color.BLACK), new Position(2, 6));
-		
-		board.placePiece(new Pawn(board, Color.WHITE), new Position(7, 0));
-		board.placePiece(new Pawn(board, Color.WHITE), new Position(7, 2));
-		board.placePiece(new Pawn(board, Color.WHITE), new Position(7, 4));
-		board.placePiece(new Pawn(board, Color.WHITE), new Position(7, 6));
-		board.placePiece(new Pawn(board, Color.WHITE), new Position(6, 1));
-		board.placePiece(new Pawn(board, Color.WHITE), new Position(6, 3));
-		board.placePiece(new Pawn(board, Color.WHITE), new Position(6, 5));
-		board.placePiece(new Pawn(board, Color.WHITE), new Position(6, 7));
-		board.placePiece(new Pawn(board, Color.WHITE), new Position(5, 0));
-		board.placePiece(new Pawn(board, Color.WHITE), new Position(5, 2));
-		board.placePiece(new Pawn(board, Color.WHITE), new Position(5, 4));
-		board.placePiece(new Pawn(board, Color.WHITE), new Position(5, 6));
+		placeNewPiece('a', 8, new Pawn(board, Color.BLACK));
+		placeNewPiece('c', 8, new Pawn(board, Color.BLACK));
+		placeNewPiece('e', 8, new Pawn(board, Color.BLACK));
+		placeNewPiece('g', 8, new Pawn(board, Color.BLACK));
+		placeNewPiece('b', 7, new Pawn(board, Color.BLACK));
+		placeNewPiece('d', 7, new Pawn(board, Color.BLACK));
+		placeNewPiece('f', 7, new Pawn(board, Color.BLACK));
+		placeNewPiece('h', 7, new Pawn(board, Color.BLACK));
+		placeNewPiece('a', 6, new Pawn(board, Color.BLACK));
+		placeNewPiece('c', 6, new Pawn(board, Color.BLACK));
+		placeNewPiece('e', 6, new Pawn(board, Color.BLACK));
+		placeNewPiece('g', 6, new Pawn(board, Color.BLACK));
 
+		placeNewPiece('a', 1, new Pawn(board, Color.BLACK));
+		placeNewPiece('c', 1, new Pawn(board, Color.BLACK));
+		placeNewPiece('e', 1, new Pawn(board, Color.BLACK));
+		placeNewPiece('g', 1, new Pawn(board, Color.BLACK));
+		placeNewPiece('b', 2, new Pawn(board, Color.BLACK));
+		placeNewPiece('d', 2, new Pawn(board, Color.BLACK));
+		placeNewPiece('f', 2, new Pawn(board, Color.BLACK));
+		placeNewPiece('h', 2, new Pawn(board, Color.BLACK));
+		placeNewPiece('a', 3, new Pawn(board, Color.BLACK));
+		placeNewPiece('c', 3, new Pawn(board, Color.BLACK));
+		placeNewPiece('e', 3, new Pawn(board, Color.BLACK));
+		placeNewPiece('g', 3, new Pawn(board, Color.BLACK));
 	}
 }
