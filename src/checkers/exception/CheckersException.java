@@ -1,6 +1,6 @@
 package checkers.exception;
 
-public class CheckersException extends RuntimeException {
+public class CheckersException extends BoardException {
 
 	private static final long serialVersionUID = 1L;
 
