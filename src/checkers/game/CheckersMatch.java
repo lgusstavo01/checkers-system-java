@@ -9,51 +9,57 @@ import checkers.piece.Pawn;
 
 public class CheckersMatch {
 	private Board board;
-	
+
 	public CheckersMatch() {
-		board = new Board(8, 8);	
+		board = new Board(8, 8);
 		initialSetup();
 	}
-	
-	public CheckersPiece[][] getPiece(){
+
+	public CheckersPiece[][] getPiece() {
 		CheckersPiece[][] temp = new CheckersPiece[board.getRows()][board.getColumns()];
-		
-		for(int i = 0; i < board.getRows(); i++) {
-			for(int j = 0; j < board.getColumns(); j++) {
-				temp[i][j] = (CheckersPiece)board.piece(i, j);
+
+		for (int i = 0; i < board.getRows(); i++) {
+			for (int j = 0; j < board.getColumns(); j++) {
+				temp[i][j] = (CheckersPiece) board.piece(i, j);
 			}
 		}
 		return temp;
 	}
-	
-	/*===== Metodo responsavel por realizar a jogada =====*/
+
+	/* ===== Metodo responsavel por realizar a jogada ===== */
 	public CheckersPiece performCheckersMove(CheckersPosition sourcePosition, CheckersPosition targetPosition) {
 		Position source = sourcePosition.toPosition();
 		Position target = targetPosition.toPosition();
 		validatePositionSource(source);
+		validatePositionTarget(source, target);
 		Piece capturedPiece = makeMove(source, target);
-		return (CheckersPiece)capturedPiece;
+		return (CheckersPiece) capturedPiece;
 	}
-	
+
 	private Piece makeMove(Position source, Position target) {
 		Piece p = board.removePiece(source);
 		Piece capturedPiece = board.removePiece(target);
 		board.placePiece(p, target);
 		return capturedPiece;
 	}
-	
+
 	public void placeNewPiece(char column, int row, CheckersPiece piece) {
 		board.placePiece(piece, new CheckersPosition(column, row).toPosition());
 	}
-	
-	/*===== Metodo responsavel por validar o movimento da peca ======*/
+
+	/* ===== Metodos responsaveis por validar o movimento da peca ====== */
 	public void validatePositionSource(Position position) {
-		if(!board.thereIsAPiece(position))
+		if (!board.thereIsAPiece(position))
 			throw new CheckersException("There is no part in the origin position.");
-		if(!board.piece(position).isThereAnyPossibleMoves())
+		if (!board.piece(position).isThereAnyPossibleMoves())
 			throw new CheckersException("The piece is trapped. There is no movement possible.");
 	}
-	
+
+	public void validatePositionTarget(Position source, Position target) {
+		if (!board.piece(source).possibleMove(target))
+			throw new CheckersException("The chosen piece cannot move to the target position.");
+	}
+
 	public void initialSetup() {
 		placeNewPiece('a', 8, new Pawn(board, Color.BLACK));
 		placeNewPiece('c', 8, new Pawn(board, Color.BLACK));
