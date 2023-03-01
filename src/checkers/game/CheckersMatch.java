@@ -1,5 +1,8 @@
 package checkers.game;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import checkers.boardgame.Board;
 import checkers.boardgame.Piece;
 import checkers.boardgame.Position;
@@ -10,6 +13,18 @@ public class CheckersMatch {
 	private Board board;
 	private int turn;
 	private Color currentPlayer;
+
+	public List<Piece> piecesOnTheBoard = new ArrayList<>();
+	public List<Piece> capturedPieces = new ArrayList<>();
+	
+	
+	public List<Piece> getPiecesOnTheBoard() {
+		return piecesOnTheBoard;
+	}
+
+	public List<Piece> getCapturedPieces() {
+		return capturedPieces;
+	}
 
 	public CheckersMatch() {
 		board = new Board(8, 8);
@@ -44,10 +59,34 @@ public class CheckersMatch {
 		validatePositionSource(source);
 		validatePositionTarget(source, target);
 		Piece capturedPiece = makeMove(source, target);
+		if(target != null) {
+				if(target.getRow() > source.getRow() && target.getColumn() > source.getColumn()) {
+					Position pieceToRemove = new Position(target.getRow() - 1, target.getColumn() - 1);
+						removePiece(pieceToRemove);
+				}
+				if(target.getRow() > source.getRow() && target.getColumn() < source.getColumn()) {
+					Position pieceToRemove = new Position(target.getRow() - 1, target.getColumn() + 1);
+						removePiece(pieceToRemove);
+				}
+				if(target.getRow() < source.getRow() && target.getColumn() > source.getColumn()) {
+					Position pieceToRemove = new Position(target.getRow() + 1, target.getColumn() - 1);
+						removePiece(pieceToRemove);
+				}
+				if(target.getRow() < source.getRow() && target.getColumn() < source.getColumn()) {
+					Position pieceToRemove = new Position(target.getRow() + 1, target.getColumn() + 1);
+						removePiece(pieceToRemove);
+				}
+		}
 		nextTurn();
 		return (CheckersPiece) capturedPiece;
 	}
 
+	private void removePiece(Position x) {
+		Piece p = board.removePiece(x);
+		piecesOnTheBoard.remove(p);
+		getCapturedPieces().add(p);
+	}
+	
 	private Piece makeMove(Position source, Position target) {
 		Piece p = board.removePiece(source);
 		Piece capturedPiece = board.removePiece(target);
@@ -63,6 +102,7 @@ public class CheckersMatch {
 
 	public void placeNewPiece(char column, int row, CheckersPiece piece) {
 		board.placePiece(piece, new CheckersPosition(column, row).toPosition());
+		piecesOnTheBoard.add(piece);
 	}
 
 	/* ===== Metodos responsaveis por validar o movimento da peca ====== */
