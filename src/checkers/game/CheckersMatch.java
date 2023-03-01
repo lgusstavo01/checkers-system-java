@@ -8,10 +8,22 @@ import checkers.piece.Pawn;
 
 public class CheckersMatch {
 	private Board board;
+	private int turn;
+	private Color currentPlayer;
 
 	public CheckersMatch() {
 		board = new Board(8, 8);
+		turn = 1;
+		currentPlayer = Color.WHITE;
 		initialSetup();
+	}
+	
+	public int getTurn() {
+		return turn;
+	}
+
+	public Color getCurrentPlayer() {
+		return currentPlayer;
 	}
 
 	public CheckersPiece[][] getPiece() {
@@ -32,6 +44,7 @@ public class CheckersMatch {
 		validatePositionSource(source);
 		validatePositionTarget(source, target);
 		Piece capturedPiece = makeMove(source, target);
+		nextTurn();
 		return (CheckersPiece) capturedPiece;
 	}
 
@@ -58,11 +71,18 @@ public class CheckersMatch {
 			throw new CheckersException("There is no part in the origin position.");
 		if (!board.piece(position).isThereAnyPossibleMoves())
 			throw new CheckersException("The piece is trapped. There is no movement possible.");
+		if(currentPlayer != ((CheckersPiece)board.piece(position)).getColor())
+			throw new CheckersException("There is a piece in position. But it's the opponent");
 	}
 
 	public void validatePositionTarget(Position source, Position target) {
 		if (!board.piece(source).possibleMove(target))
 			throw new CheckersException("The chosen piece cannot move to the target position.");
+	}
+	
+	private void nextTurn() {
+		turn++;
+		currentPlayer = currentPlayer == Color.WHITE ? Color.BLACK : Color.WHITE;
 	}
 
 	public void initialSetup() {

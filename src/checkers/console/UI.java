@@ -3,6 +3,7 @@ package checkers.console;
 import java.util.Scanner;
 
 import checkers.exception.BoardException;
+import checkers.game.CheckersMatch;
 import checkers.game.CheckersPiece;
 import checkers.game.CheckersPosition;
 import checkers.game.Color;
@@ -37,6 +38,14 @@ public class UI {
 		} catch(RuntimeException e) {
 			throw new BoardException("Error in reading the position. Valid values are a1 through h8.");
 		}
+	}
+	
+	public static void printMatch(CheckersMatch checkersMatch) {
+		printBoard(checkersMatch.getPiece());
+		System.out.println();
+		System.out.println();
+		System.out.println("Turn: " + checkersMatch.getTurn());
+		System.out.println("Waiting player: " + checkersMatch.getCurrentPlayer());
 	}
 	
 	public static void printBoard(CheckersPiece[][] pieces) {
