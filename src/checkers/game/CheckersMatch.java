@@ -2,6 +2,7 @@ package checkers.game;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import checkers.boardgame.Board;
 import checkers.boardgame.Piece;
@@ -16,8 +17,7 @@ public class CheckersMatch {
 
 	public List<Piece> piecesOnTheBoard = new ArrayList<>();
 	public List<Piece> capturedPieces = new ArrayList<>();
-	
-	
+
 	public List<Piece> getPiecesOnTheBoard() {
 		return piecesOnTheBoard;
 	}
@@ -32,7 +32,7 @@ public class CheckersMatch {
 		currentPlayer = Color.WHITE;
 		initialSetup();
 	}
-	
+
 	public int getTurn() {
 		return turn;
 	}
@@ -52,6 +52,25 @@ public class CheckersMatch {
 		return temp;
 	}
 
+	public boolean end() {
+		List<Piece> list = piecesOnTheBoard.stream().filter(x -> ((CheckersPiece) x).getColor() == Color.WHITE)
+				.collect(Collectors.toList());
+		List<Piece> list1 = piecesOnTheBoard.stream().filter(x -> ((CheckersPiece) x).getColor() == Color.BLACK)
+				.collect(Collectors.toList());
+
+		if (list.size() == 0) {
+			System.out.println();
+			System.out.println("BLACK WIN !");
+			return true;
+		}
+		if (list1.size() == 0) {
+			System.out.println();
+			System.out.println("WHITE WIN !");
+			return true;
+		}
+		return false;
+	}
+
 	/* ===== Metodo responsavel por realizar a jogada ===== */
 	public CheckersPiece performCheckersMove(CheckersPosition sourcePosition, CheckersPosition targetPosition) {
 		Position source = sourcePosition.toPosition();
@@ -59,23 +78,23 @@ public class CheckersMatch {
 		validatePositionSource(source);
 		validatePositionTarget(source, target);
 		Piece capturedPiece = makeMove(source, target);
-		if(target != null) {
-				if(target.getRow() > source.getRow() && target.getColumn() > source.getColumn()) {
-					Position pieceToRemove = new Position(target.getRow() - 1, target.getColumn() - 1);
-						removePiece(pieceToRemove);
-				}
-				if(target.getRow() > source.getRow() && target.getColumn() < source.getColumn()) {
-					Position pieceToRemove = new Position(target.getRow() - 1, target.getColumn() + 1);
-						removePiece(pieceToRemove);
-				}
-				if(target.getRow() < source.getRow() && target.getColumn() > source.getColumn()) {
-					Position pieceToRemove = new Position(target.getRow() + 1, target.getColumn() - 1);
-						removePiece(pieceToRemove);
-				}
-				if(target.getRow() < source.getRow() && target.getColumn() < source.getColumn()) {
-					Position pieceToRemove = new Position(target.getRow() + 1, target.getColumn() + 1);
-						removePiece(pieceToRemove);
-				}
+		if (target != null) {
+			if (target.getRow() > source.getRow() && target.getColumn() > source.getColumn()) {
+				Position pieceToRemove = new Position(target.getRow() - 1, target.getColumn() - 1);
+				removePiece(pieceToRemove);
+			}
+			if (target.getRow() > source.getRow() && target.getColumn() < source.getColumn()) {
+				Position pieceToRemove = new Position(target.getRow() - 1, target.getColumn() + 1);
+				removePiece(pieceToRemove);
+			}
+			if (target.getRow() < source.getRow() && target.getColumn() > source.getColumn()) {
+				Position pieceToRemove = new Position(target.getRow() + 1, target.getColumn() - 1);
+				removePiece(pieceToRemove);
+			}
+			if (target.getRow() < source.getRow() && target.getColumn() < source.getColumn()) {
+				Position pieceToRemove = new Position(target.getRow() + 1, target.getColumn() + 1);
+				removePiece(pieceToRemove);
+			}
 		}
 		nextTurn();
 		return (CheckersPiece) capturedPiece;
@@ -86,15 +105,15 @@ public class CheckersMatch {
 		piecesOnTheBoard.remove(p);
 		getCapturedPieces().add(p);
 	}
-	
+
 	private Piece makeMove(Position source, Position target) {
 		Piece p = board.removePiece(source);
 		Piece capturedPiece = board.removePiece(target);
 		board.placePiece(p, target);
 		return capturedPiece;
 	}
-	
-	public boolean[][] possibleMoves(CheckersPosition sourcePosition){
+
+	public boolean[][] possibleMoves(CheckersPosition sourcePosition) {
 		Position position = sourcePosition.toPosition();
 		validatePositionSource(position);
 		return board.piece(position).possibleMoves();
@@ -111,7 +130,7 @@ public class CheckersMatch {
 			throw new CheckersException("There is no part in the origin position.");
 		if (!board.piece(position).isThereAnyPossibleMoves())
 			throw new CheckersException("The piece is trapped. There is no movement possible.");
-		if(currentPlayer != ((CheckersPiece)board.piece(position)).getColor())
+		if (currentPlayer != ((CheckersPiece) board.piece(position)).getColor())
 			throw new CheckersException("There is a piece in position. But it's the opponent");
 	}
 
@@ -119,7 +138,7 @@ public class CheckersMatch {
 		if (!board.piece(source).possibleMove(target))
 			throw new CheckersException("The chosen piece cannot move to the target position.");
 	}
-	
+
 	private void nextTurn() {
 		turn++;
 		currentPlayer = currentPlayer == Color.WHITE ? Color.BLACK : Color.WHITE;
@@ -151,5 +170,6 @@ public class CheckersMatch {
 		placeNewPiece('d', 3, new Pawn(board, Color.WHITE));
 		placeNewPiece('f', 3, new Pawn(board, Color.WHITE));
 		placeNewPiece('h', 3, new Pawn(board, Color.WHITE));
+		
 	}
 }

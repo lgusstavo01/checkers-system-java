@@ -17,7 +17,7 @@ public class Program {
 		CheckersMatch checkersMatch = new CheckersMatch();
 		List<CheckersPiece> list = new ArrayList<>();
 
-		while (true) {
+		while (!checkersMatch.end()) {
 			try {
 				UI.clearScreen();
 				UI.printMatch(checkersMatch, list);
