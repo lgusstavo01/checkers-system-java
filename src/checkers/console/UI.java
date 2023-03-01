@@ -50,6 +50,11 @@ public class UI {
 		System.out.print("  A B C D E F G H");
 	}
 	
+	public static void clearScreen() {
+		System.out.println("\033[H\033[2J");
+		System.out.flush();
+	}
+	
 	public static void printPiece(CheckersPiece piece) {
 		if(piece == null) 
 			System.out.print("-");
