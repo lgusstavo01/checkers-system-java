@@ -22,12 +22,15 @@ public class Program {
 				System.out.println();
 				System.out.print("Source: ");
 				CheckersPosition source = UI.readCheckersPosition(sc);
+				boolean[][] possibleMoves = checkersMatch.possibleMoves(source);
+				UI.clearScreen();
+				UI.printBoard(checkersMatch.getPiece(), possibleMoves);
 
+				System.out.println();
 				System.out.println();
 				System.out.print("Target: ");
 				CheckersPosition target = UI.readCheckersPosition(sc);
 				
-
 				CheckersPiece capturesPiece = checkersMatch.performCheckersMove(source, target);
 			} catch (CheckersException e) {
 				System.out.println(e.getMessage());
