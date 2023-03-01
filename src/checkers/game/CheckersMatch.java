@@ -4,6 +4,7 @@ import checkers.boardgame.Board;
 import checkers.boardgame.Piece;
 import checkers.boardgame.Position;
 import checkers.exception.BoardException;
+import checkers.exception.CheckersException;
 import checkers.piece.Pawn;
 
 public class CheckersMatch {
@@ -45,9 +46,12 @@ public class CheckersMatch {
 		board.placePiece(piece, new CheckersPosition(column, row).toPosition());
 	}
 	
+	/*===== Metodo responsavel por validar o movimento da peca ======*/
 	public void validatePositionSource(Position position) {
 		if(!board.thereIsAPiece(position))
-			throw new BoardException("There is no part in the origin position.");
+			throw new CheckersException("There is no part in the origin position.");
+		if(!board.piece(position).isThereAnyPossibleMoves())
+			throw new CheckersException("The piece is trapped. There is no movement possible.");
 	}
 	
 	public void initialSetup() {

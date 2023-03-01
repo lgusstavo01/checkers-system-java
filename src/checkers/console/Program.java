@@ -25,8 +25,8 @@ public class Program {
 
 				System.out.println();
 				System.out.print("Target: ");
-				System.out.println();
 				CheckersPosition target = UI.readCheckersPosition(sc);
+				System.out.println();
 
 				CheckersPiece capturesPiece = checkersMatch.performCheckersMove(source, target);
 			} catch (CheckersException e) {
